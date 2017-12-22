@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 public class Star extends Application {
     private final double WIDTH = 600;
     private final double HEIGHT = 400;
+    private Polyline polyline;
 
     public static void main(String[] args) {
         launch(args);
@@ -86,9 +87,10 @@ public class Star extends Application {
         coordinateY.setTranslateY(130);
 
 
-        Polyline polyline = new Polyline();
 
         button.setOnMouseClicked((event) -> {
+            root.getChildren().removeAll(polyline);
+            polyline = new Polyline();
                     double rad = Integer.parseInt(radius.getText());
                     double x = Integer.parseInt(coordinateX.getText());
                     double y = Integer.parseInt(coordinateY.getText());
@@ -116,10 +118,10 @@ public class Star extends Application {
                             x - rad / inc * sin36sin324,  y - rad / inc * cos36cos324,//10
                             x,                            y - rad//fin
                     );
-                }
-        );
+                    root.getChildren().add(polyline);
+                });
 
-        root.getChildren().addAll(text, button, coordinateX, coordinateY, radius, polyline,
+        root.getChildren().addAll(text, button, coordinateX, coordinateY, radius,
                 text1, text2, text3);
         return root;
     }
