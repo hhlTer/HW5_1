@@ -21,6 +21,8 @@ public class PaintCircles extends Application {
     private final double WIDTH = 800;
     private final double HEIGHT = 600;
     private final double ACTUAL_HEIGHT = 600 - 28;
+    private List<Circle> lcircles = new ArrayList<>();
+
 
     public static void main(String[] args) {
         launch(args);
@@ -85,7 +87,6 @@ public class PaintCircles extends Application {
         minimalRad.setMaxSize(50,200);
         maximalRad.setMaxSize(50,200);
 
-        List<Circle> lcircles = new ArrayList<>();
         button.setOnMouseClicked((event) -> {
             root.getChildren().removeAll(lcircles);
             lcircles.clear();
@@ -137,6 +138,7 @@ public class PaintCircles extends Application {
                             random.nextInt((int)l) + FACE_RADIUS/7);
                     circle.setFill(Color.color(Math.random(), Math.random(), Math.random()));
                     lcircles.add(circle);
+//                    textList.add(new Text(550, i*15+100,""));
                 }
             }
             root.getChildren().addAll(lcircles);
