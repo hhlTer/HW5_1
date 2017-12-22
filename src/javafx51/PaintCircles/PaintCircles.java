@@ -67,6 +67,12 @@ public class PaintCircles extends Application {
         Button button = new Button("Show star");
         button.setTranslateX(20);
         button.setTranslateY(40);
+
+        Button buttonRed = new Button("Filled to red");
+        buttonRed.setTranslateX(20);
+        buttonRed.setTranslateY(170);
+
+
 /*
  *  ---------------------------------------------------------
  *  --------------------- TextField -------------------------
@@ -88,6 +94,16 @@ public class PaintCircles extends Application {
         minimalRad.setMaxSize(50,200);
         maximalRad.setMaxSize(50,200);
 
+        buttonRed.setOnMouseClicked((event) ->{
+            if (lcircles == null) return;
+            for (Circle c:
+                 lcircles) {
+                c.setFill(Color.color(1.0,0.0,0.0,Math.random()));
+            }
+            root.getChildren().removeAll(lcircles);
+                    root.getChildren().addAll(lcircles);
+                }
+        );
         button.setOnMouseClicked((event) -> {
             root.getChildren().removeAll(lcircles);
             lcircles.clear();
@@ -153,7 +169,7 @@ public class PaintCircles extends Application {
             root.getChildren().addAll(lcircles);
         });
 
-        root.getChildren().addAll(text, button, minimalRad, maximalRad, countCircles,
+        root.getChildren().addAll(text, button, buttonRed, minimalRad, maximalRad, countCircles,
                 text1, text2, text3);
         return root;
     }
