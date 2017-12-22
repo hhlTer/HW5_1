@@ -18,7 +18,7 @@ package javafx51.PaintCircles;
         import java.util.Random;
 
 public class PaintCircles extends Application {
-    private final double WIDTH = 800;
+    private final double WIDTH = 1200;
     private final double HEIGHT = 600;
     private final double ACTUAL_HEIGHT = 600 - 28;
     private List<Circle> lcircles = new ArrayList<>();
@@ -56,6 +56,7 @@ public class PaintCircles extends Application {
 
         Text text3 = new Text(80, 148, "Maximal radius");
         text3.setFont(new Font(20));
+
         List<Text> textList = new ArrayList<>();
 
 /*
@@ -102,9 +103,10 @@ public class PaintCircles extends Application {
                 int finHeight = (int) ACTUAL_HEIGHT - sumRad;
                 int finMaxRadius = maxRadius;
                 int finMinRadius = minRadius;
-                if (minRadius < finHeight/(i+1)/2) finMinRadius = finHeight/(i+1)/2;
+//                if (minRadius < finHeight/(i+1)/2) finMinRadius = finHeight/(i+1)/2;
                 if (maxRadius > finHeight/(i+1)/2) finMaxRadius = finHeight/(i+1)/2 - minRadius;
                 else finMaxRadius = maxRadius - minRadius;
+                if (i == countCirc - 1) finMinRadius = 11;
                 radiuses[i] = random.nextInt(finMaxRadius) + finMinRadius;
                 if (i == 0) radiuses[i] = finHeight/2 > maxRadius ? maxRadius : finHeight/2;
                 sumRad += radiuses[i] * 2;
@@ -112,6 +114,11 @@ public class PaintCircles extends Application {
                 Circle circle = new Circle(SUM_VOL_X, yfin, radiuses[i]);
                 circle.setFill(Color.color(Math.random(),Math.random(),Math.random()));
                 lcircles.add(circle);
+//                textList.add(new Text(450, i*15+100,"radius[" + i + "] - " + radiuses[i] +
+//                        " finHeight - " + finHeight +
+//                        " finMaxRadius - " + finMaxRadius +
+//                        " finMinRadius - " + finMinRadius +
+//                        ""));
                 if (i == 0){
                     final int FACE_RADIUS = radiuses[countCirc-1];
 //nose
@@ -124,8 +131,10 @@ public class PaintCircles extends Application {
                     final int RIGT_X = SUM_VOL_X - FACE_RADIUS/2;
                     final int Y = FACE_RADIUS - FACE_RADIUS/2;
 //-------------------------l - maximum radius of eyes.
-                    double l = (FACE_RADIUS - Math.sqrt((SUM_VOL_X - LEFT_X)*(SUM_VOL_X - LEFT_X) +
-                            (FACE_RADIUS - Y)*(FACE_RADIUS - Y)))/2 - 1;
+
+                    double lprev = (FACE_RADIUS - Math.sqrt((SUM_VOL_X - LEFT_X)*(SUM_VOL_X - LEFT_X) +
+                            (FACE_RADIUS - Y)*(FACE_RADIUS - Y)))/2;
+                    double l = lprev < 2 ? lprev : lprev - 1;
 
                     circle = new Circle(SUM_VOL_X - FACE_RADIUS/2,// Math.sin(Math.toRadians(30)*FACE_RADIUS),
                             FACE_RADIUS - FACE_RADIUS/2,
@@ -138,9 +147,9 @@ public class PaintCircles extends Application {
                             random.nextInt((int)l) + FACE_RADIUS/7);
                     circle.setFill(Color.color(Math.random(), Math.random(), Math.random()));
                     lcircles.add(circle);
-//                    textList.add(new Text(550, i*15+100,""));
                 }
             }
+            root.getChildren().addAll(textList);
             root.getChildren().addAll(lcircles);
         });
 
