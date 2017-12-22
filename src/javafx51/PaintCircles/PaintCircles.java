@@ -104,7 +104,6 @@ public class PaintCircles extends Application {
             double gradient = 1;
             for (Circle c:
                  lcircles) {
-                text.setText("grad " + step);
                 c.setFill(Color.color(0.0,0.0,0.0, gradient));
                 gradient = gradient - step;
             }
