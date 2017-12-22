@@ -68,9 +68,13 @@ public class PaintCircles extends Application {
         button.setTranslateX(20);
         button.setTranslateY(40);
 
-        Button buttonRed = new Button("Filled to red");
+        Button buttonRed = new Button("Fill to red");
         buttonRed.setTranslateX(20);
         buttonRed.setTranslateY(170);
+
+        Button buttonGradient = new Button("Gradient");
+        buttonGradient.setTranslateX(20);
+        buttonGradient.setTranslateY(200);
 
 
 /*
@@ -94,6 +98,21 @@ public class PaintCircles extends Application {
         minimalRad.setMaxSize(50,200);
         maximalRad.setMaxSize(50,200);
 
+        buttonGradient.setOnMouseClicked((event) ->{
+            if (lcircles == null) return;
+            double step = (double) 1/lcircles.size();
+            double gradient = 1;
+            for (Circle c:
+                 lcircles) {
+                text.setText("grad " + step);
+                c.setFill(Color.color(0.0,0.0,0.0, gradient));
+                gradient = gradient - step;
+            }
+            root.getChildren().removeAll(lcircles);
+                    root.getChildren().addAll(lcircles);
+                }
+        );
+
         buttonRed.setOnMouseClicked((event) ->{
             if (lcircles == null) return;
             for (Circle c:
@@ -104,6 +123,7 @@ public class PaintCircles extends Application {
                     root.getChildren().addAll(lcircles);
                 }
         );
+
         button.setOnMouseClicked((event) -> {
             root.getChildren().removeAll(lcircles);
             lcircles.clear();
@@ -169,7 +189,7 @@ public class PaintCircles extends Application {
             root.getChildren().addAll(lcircles);
         });
 
-        root.getChildren().addAll(text, button, buttonRed, minimalRad, maximalRad, countCircles,
+        root.getChildren().addAll(text, button, buttonRed, buttonGradient, minimalRad, maximalRad, countCircles,
                 text1, text2, text3);
         return root;
     }
